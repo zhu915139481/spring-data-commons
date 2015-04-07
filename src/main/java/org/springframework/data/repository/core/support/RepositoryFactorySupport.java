@@ -15,8 +15,6 @@
  */
 package org.springframework.data.repository.core.support;
 
-import static org.springframework.util.ReflectionUtils.*;
-
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -66,7 +64,7 @@ public abstract class RepositoryFactorySupport implements BeanClassLoaderAware {
 	private final Map<RepositoryInformationCacheKey, RepositoryInformation> repositoryInformationCache = new HashMap<RepositoryInformationCacheKey, RepositoryInformation>();
 	private final List<RepositoryProxyPostProcessor> postProcessors = new ArrayList<RepositoryProxyPostProcessor>();
 
-	private Class<?> repositoryBaseClass = null;
+	private Class<?> repositoryBaseClass;
 	private QueryLookupStrategy.Key queryLookupStrategyKey;
 	private List<QueryCreationListener<?>> queryPostProcessors = new ArrayList<QueryCreationListener<?>>();
 	private NamedQueries namedQueries = PropertiesBasedNamedQueries.EMPTY;
@@ -122,7 +120,7 @@ public abstract class RepositoryFactorySupport implements BeanClassLoaderAware {
 	 * the type returned by {@link #getRepositoryBaseClass(RepositoryMetadata)} by default.
 	 * 
 	 * @param repositoryBaseClass the repository base class to back the repository proxy, can be {@literal null}.
-	 * @since 1.10
+	 * @since 1.11
 	 */
 	public void setRepositoryBaseClass(Class<?> repositoryBaseClass) {
 		this.repositoryBaseClass = repositoryBaseClass;
@@ -424,8 +422,8 @@ public abstract class RepositoryFactorySupport implements BeanClassLoaderAware {
 			Object[] arguments = invocation.getArguments();
 
 			if (isCustomMethodInvocation(invocation)) {
+
 				Method actualMethod = repositoryInformation.getTargetClassMethod(method);
-				makeAccessible(actualMethod);
 				return executeMethodOn(customImplementation, actualMethod, arguments);
 			}
 
