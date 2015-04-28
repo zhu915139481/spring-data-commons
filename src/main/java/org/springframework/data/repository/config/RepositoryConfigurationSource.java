@@ -68,7 +68,10 @@ public interface RepositoryConfigurationSource {
 	 * Returns the name of the class of the {@link FactoryBean} to actually create repository instances.
 	 * 
 	 * @return
+	 * @deprecated as of 1.11 in favor of using a dedicated repository base class name, see
+	 *             {@link #getRepositoryBaseClassName()}.
 	 */
+	@Deprecated
 	String getRepositoryFactoryBeanName();
 
 	/**

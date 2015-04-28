@@ -106,7 +106,11 @@
 	<xsd:attributeGroup name="repository-attributes">
 		<xsd:attribute name="repository-impl-postfix" type="xsd:string"/>
 		<xsd:attribute name="query-lookup-strategy" type="query-strategy"/>
-		<xsd:attribute name="factory-class" type="classType"/>
+		<xsd:attribute name="factory-class" type="classType">
+			<xsd:annotation>
+				<xsd:documentation>Deprecated as of version 1.11. Configure a dedicated base-class instead.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
 		<xsd:attribute name="base-class" type="classType" />
 	</xsd:attributeGroup>
 
